@@ -1,0 +1,33 @@
+<div style="margin-top: 5rem;">
+  <h1> Bienvenue sur la page du Gossip n°<%= @gossip.id %> !</h1>
+</div>
+
+<div class="card mx-auto" style="width: 18rem; margin-top: 5rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= @gossip.title %></h5>
+    <p class="card-text"></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= @gossip.content %></li>
+    <li class="list-group-item">Posted at</br><%= @gossip.created_at %></li>
+    <li class="list-group-item">
+      <a title="User profile" href="<%= user_path(@u.id) %>">
+        <%= @u.first_name %>
+        <%= @u.last_name %>
+      </a> </br>
+      <a title="UserCity" href="<%= city_path(@u.city_id) %>"><%= @u.city.name %></a>
+    </li>
+    <li class="list-group-item"><%= @gossip.likes.count %> likes 
+    <% if Like.find_by(user_id: current_user.id) && Like.find_by(gossip_id: @gossip.id) %>
+      <a class="btn btn-primary" href="<%= gossip_like_path(@gossip.id) %>" data-method="DELETE" role="button">Unlike</a></li>
+    <% else %>
+      <a class="btn btn-primary" href="<%= gossip_like_index_path(@gossip.id) %>" data-method="CREATE" role="button">Like</a></li>
+    <% end %>
+  </ul>
+</div>
+<% if current_user.gossips.ids.include? @gossip.id%>
+  <div style="margin-top: 5rem;">
+    <a class="btn btn-primary" href="<%= edit_gossip_path(params[:id]) %>" role="button">Edit Gossip</a>
+    <a class="btn btn-danger" href="<%= gossip_path(params[:id]) %>" role="button" data-method="DELETE" data-confirm="Are you sure ?">Delete Gossip</a>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<h1> Bienvenue sur le profil de <%= @u.first_name %> !</h1>
+
+  <div class="card mx-auto" style="width: 18rem; margin-top: 5rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= @u.first_name %> <%= @u.last_name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%= @u.age %> ans</h6>
+    
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><a title="UserCity" href="<%= city_path(@u.city_id) %>"><%= @u.city.name %></a></li>
+      <li class="list-group-item"><%= @u.description %></li>
+      <li class="list-group-item"><%= @u.email %></li>
+      <li class="list-group-item">Registred since </br> <%= @u.created_at %></li>
+    </ul>
+  </div>
+</div>
